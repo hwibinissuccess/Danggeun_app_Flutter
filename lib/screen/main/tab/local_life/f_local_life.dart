@@ -1,24 +1,44 @@
-import 'package:fast_app_base/common/common.dart';
-import 'package:fast_app_base/common/widget/round_button_theme.dart';
-import 'package:fast_app_base/common/widget/w_round_button.dart';
-import 'package:fast_app_base/screen/dialog/d_message.dart';
+import 'package:fast_app_base/screen/main/fab/w_floating_daangn_button.riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../dialog/d_color_bottom.dart';
-import '../../../dialog/d_confirm.dart';
 
-class LocalLifeFragment extends StatefulWidget {
-  const LocalLifeFragment({
-    Key? key,
-  }) : super(key: key);
+class LocalLifeFragment extends ConsumerStatefulWidget {
+  const LocalLifeFragment({super.key});
 
   @override
-  State<LocalLifeFragment> createState() => _LocalLifeFragmentState();
+  ConsumerState<LocalLifeFragment> createState() => _LocalLifeFragmentState();
 }
 
-class _LocalLifeFragmentState extends State<LocalLifeFragment> {
+class _LocalLifeFragmentState extends ConsumerState<LocalLifeFragment> {
+
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    scrollController.addListener(() {
+      final floatingState = ref.read(floatingButtonStateProvider);
+
+      if(scrollController.position.pixels > 100 && !floatingState.isSmall){
+        ref.read(floatingButtonStateProvider.notifier).changeButtonSize(true);
+      } else if(scrollController.position.pixels < 100 && floatingState.isSmall){
+        ref.read(floatingButtonStateProvider.notifier).changeButtonSize(false);
+      }
+
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  const Placeholder();
+    return ListView(
+      controller: scrollController,
+      children: [
+        Container(height: 500, color: Colors.orange,),
+        Container(height: 500, color: Colors.yellow,),
+        Container(height: 500, color: Colors.orange,),
+        Container(height: 500, color: Colors.yellow,),
+      ],
+    );
   }
 }

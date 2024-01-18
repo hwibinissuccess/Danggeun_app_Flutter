@@ -3,11 +3,11 @@ import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/entity/dummies.dart';
 import 'package:fast_app_base/screen/main/fab/w_floating_daangn_button.riverpod.dart';
 import 'package:fast_app_base/screen/main/tab/home/w_product_post_item.dart';
+import 'package:fast_app_base/screen/notification/s_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../fab/w_floating_daangn_button.dart';
-
 
 class HomeFragment extends ConsumerStatefulWidget {
   const HomeFragment({super.key});
@@ -17,7 +17,6 @@ class HomeFragment extends ConsumerStatefulWidget {
 }
 
 class _HomeFragmentState extends ConsumerState<HomeFragment> {
-
   final scrollController = ScrollController();
   String title = "플러터동";
 
@@ -26,12 +25,12 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
     scrollController.addListener(() {
       final floatingState = ref.read(floatingButtonStateProvider);
 
-      if(scrollController.position.pixels > 100 && !floatingState.isSmall){
+      if (scrollController.position.pixels > 100 && !floatingState.isSmall) {
         ref.read(floatingButtonStateProvider.notifier).changeButtonSize(true);
-      } else if(scrollController.position.pixels < 100 && floatingState.isSmall){
+      } else if (scrollController.position.pixels < 100 &&
+          floatingState.isSmall) {
         ref.read(floatingButtonStateProvider.notifier).changeButtonSize(false);
       }
-
     });
     super.initState();
   }
@@ -42,15 +41,27 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
       children: [
         AppBar(
           title: PopupMenuButton<String>(
-            onSelected: (value){
+            onSelected: (value) {
               setState(() {
-                title=value;
+                title = value;
               });
             },
-            itemBuilder: (BuildContext context)
-             => ["다트동", "앱동"].map((e) => PopupMenuItem(value: e, child: Text(e),)).toList(),
+            itemBuilder: (BuildContext context) => ["다트동", "앱동"]
+                .map((e) => PopupMenuItem(
+                      value: e,
+                      child: Text(e),
+                    ))
+                .toList(),
             child: Text(title),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Nav.push(NotificationScreen());
+              },
+              icon: Icon(Icons.notifications_none_rounded),
+            ),
+          ],
         ),
         Expanded(
           child: ListView.separated(
@@ -58,7 +69,7 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
             controller: scrollController,
             itemBuilder: (context, index) => ProductPostItem(postList[index]),
             itemCount: postList.length,
-            separatorBuilder: (context,index) => Line().pSymmetric(h:15),
+            separatorBuilder: (context, index) => Line().pSymmetric(h: 15),
           ),
         ),
       ],

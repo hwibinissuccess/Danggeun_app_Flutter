@@ -6,7 +6,7 @@ import 'package:fast_app_base/entity/user/vo_address.dart';
 import 'package:fast_app_base/entity/user/vo_user.dart';
 
 String picSum(int id) {
-  return 'https://pcsum.photos/id/$id/200/200';
+  return 'https://picsum.photos/id/$id/200/200';
 }
 
 final user1 = User(

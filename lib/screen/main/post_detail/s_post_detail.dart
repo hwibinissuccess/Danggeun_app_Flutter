@@ -27,7 +27,7 @@ class PostDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final productPost = ref.watch(productPostProvider(id));
     return productPost.when(
-      data: (data) => _PostDetail(data.simpleProductPost, productPost: data,),
+      data: (data) => _PostDetail(simpleProductPost ?? data.simpleProductPost, productPost: data,),
       error: (err, stack) => '에러발생'.text.make(),
       loading: () => simpleProductPost != null
           ? _PostDetail(simpleProductPost!)
@@ -148,7 +148,7 @@ class _ImagePager extends StatelessWidget {
                     ))
                 .toList(),
           ),
-          Align(
+          if(simpleProductPost.product.images.length>1)Align(
             alignment: Alignment.bottomCenter,
             child: SmoothPageIndicator(
               controller: pageController,

@@ -17,7 +17,9 @@ class PostContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        simpleProductPost.title.text.bold.make(),
+        Hero(
+            tag: '${simpleProductPost.id}_title',
+            child: Material(child: simpleProductPost.title.text.bold.make())),
         height20,
         timeago
             .format(simpleProductPost.createdTime,
@@ -30,7 +32,8 @@ class PostContent extends StatelessWidget {
           Center(
             child: CircularProgressIndicator(),
           ),
-        if (productPost != null) productPost!.content.text.make().pOnly(top: 30, bottom: 60),
+        if (productPost != null)
+          productPost!.content.text.make().pOnly(top: 30, bottom: 60),
       ],
     ).pSymmetric(h: 15);
   }

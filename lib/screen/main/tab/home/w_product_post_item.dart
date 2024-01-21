@@ -13,9 +13,12 @@ class ProductPostItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tap(
-      onTap: (){
+      onTap: () {
         // 상세 페이지
-        Nav.push(PostDetailScreen(post.id, simpleProductPost: post,));
+        Nav.push(PostDetailScreen(
+          post.id,
+          simpleProductPost: post,
+        ));
       },
       child: Stack(
         children: [
@@ -24,9 +27,12 @@ class ProductPostItem extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: CachedNetworkImage(
-                  imageUrl: post.product.images[0],
-                  width: 150,
+                child: Hero(
+                  tag: '${post.id}_${post.product.images[0]}',
+                  child: CachedNetworkImage(
+                    imageUrl: post.product.images[0],
+                    width: 150,
+                  ),
                 ),
               ),
               Width(10),
@@ -34,16 +40,15 @@ class ProductPostItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    post.title.text.size(17).bold.make(),
+                    Hero(
+                        tag: '${post.id}_title',
+                        child: Material(child: post.title.text.size(17).bold.make())),
                     Row(
                       children: [
                         post.address.simpleAddress.text
                             .color(context.appColors.lessImportant)
                             .make(),
-                        '/'
-                            .text
-                            .color(context.appColors.lessImportant)
-                            .make(),
+                        '/'.text.color(context.appColors.lessImportant).make(),
                         timeago
                             .format(post.createdTime,
                                 locale: context.locale.languageCode)

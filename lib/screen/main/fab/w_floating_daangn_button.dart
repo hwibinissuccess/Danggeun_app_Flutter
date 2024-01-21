@@ -51,11 +51,11 @@ class FloatingDaangnButton extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _floatItem('알바', '$basePath/fab/fab_01_png'),
-                      _floatItem('과외/클래스', '$basePath/fab/fab_02_png'),
-                      _floatItem('눙수산물', '$basePath/fab/fab_03_png'),
-                      _floatItem('부동산', '$basePath/fab/fab_04_png'),
-                      _floatItem('중고차', '$basePath/fab/fab_05_png'),
+                      _floatItem('알바', '$basePath/fab/fab_01.png'),
+                      _floatItem('과외/클래스', '$basePath/fab/fab_02.png'),
+                      _floatItem('눙수산물', '$basePath/fab/fab_03.png'),
+                      _floatItem('부동산', '$basePath/fab/fab_04.png'),
+                      _floatItem('중고차', '$basePath/fab/fab_05.png'),
                     ],
                   ),
                 ),

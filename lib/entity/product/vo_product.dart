@@ -11,7 +11,6 @@ class Product with _$Product {
       final User user,
       final String name,
       final int price,
-      final String description,
       final ProductStatus statuc,
       final List<String> images,
       ) = _Product;
